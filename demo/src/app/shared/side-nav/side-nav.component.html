@@ -21,6 +21,16 @@
           </li>
         </ul>
       </div>
+      <div class="bd-toc-item">
+        <a class="bd-toc-link" [routerLink]="['/components/slider']">
+          <h4>Additional Components</h4>
+        </a>
+        <ul class="nav bd-sidenav">
+          <li *ngFor="let component of additionalComponents" [routerLinkActive]="['active']">
+            <a [routerLink]="['/components', component.toLowerCase()]">{{ component }}</a>
+          </li>
+        </ul>
+      </div>
     </nav>
   </div>
 </div>

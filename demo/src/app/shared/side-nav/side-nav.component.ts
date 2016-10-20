@@ -23,4 +23,10 @@ export class SideNavComponent {
     'Tooltip',
     'Typeahead'
   ];
+
+  public additionalComponents: Array<string> = [
+    'Slider',
+    'Accordiontable',
+    'Multiselect'
+  ];
 }

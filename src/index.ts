@@ -16,6 +16,9 @@ import {NgbTabsetModule, NgbTabChangeEvent} from './tabset/tabset.module';
 import {NgbTimepickerModule} from './timepicker/timepicker.module';
 import {NgbTooltipModule} from './tooltip/tooltip.module';
 import {NgbTypeaheadModule, NgbTypeaheadSelectItemEvent} from './typeahead/typeahead.module';
+import {NgbAccordiontableModule} from './accordiontable/accordiontable.module';
+import {NgbMultiselectModule} from './multiselect/multiselect.module';
+import {NgbSliderModule} from './slider/slider.module';
 
 export {NgbAccordionModule, NgbPanelChangeEvent, NgbAccordionConfig} from './accordion/accordion.module';
 export {NgbAlertModule, NgbAlertConfig} from './alert/alert.module';
@@ -39,20 +42,26 @@ export {NgbTabsetModule, NgbTabChangeEvent, NgbTabsetConfig} from './tabset/tabs
 export {NgbTimepickerModule, NgbTimepickerConfig, NgbTimeStruct} from './timepicker/timepicker.module';
 export {NgbTooltipModule, NgbTooltipConfig} from './tooltip/tooltip.module';
 export {NgbTypeaheadModule, NgbTypeaheadConfig, NgbTypeaheadSelectItemEvent} from './typeahead/typeahead.module';
+export {NgbAccordiontableModule} from './accordiontable/accordiontable.module';
+export {NgbMultiselectModule} from './multiselect/multiselect.module';
+export {NgbSliderModule} from './slider/slider.module';
 
 const NGB_MODULES = [
   NgbAccordionModule, NgbAlertModule, NgbButtonsModule, NgbCarouselModule, NgbCollapseModule, NgbDatepickerModule,
   NgbDropdownModule, NgbModalModule, NgbPaginationModule, NgbPopoverModule, NgbProgressbarModule, NgbRatingModule,
-  NgbTabsetModule, NgbTimepickerModule, NgbTooltipModule, NgbTypeaheadModule
+  NgbTabsetModule, NgbTimepickerModule, NgbTooltipModule, NgbTypeaheadModule, NgbAccordiontableModule,
+  NgbMultiselectModule, NgbSliderModule
 ];
 
 @NgModule({
   imports: [
-    NgbAlertModule.forRoot(), NgbButtonsModule.forRoot(), NgbCollapseModule.forRoot(), NgbProgressbarModule.forRoot(),
-    NgbTooltipModule.forRoot(), NgbTypeaheadModule.forRoot(), NgbAccordionModule.forRoot(), NgbCarouselModule.forRoot(),
-    NgbDatepickerModule.forRoot(), NgbDropdownModule.forRoot(), NgbModalModule.forRoot(), NgbPaginationModule.forRoot(),
-    NgbPopoverModule.forRoot(), NgbProgressbarModule.forRoot(), NgbRatingModule.forRoot(), NgbTabsetModule.forRoot(),
-    NgbTimepickerModule.forRoot(), NgbTooltipModule.forRoot()
+    NgbAlertModule.forRoot(),          NgbButtonsModule.forRoot(),     NgbCollapseModule.forRoot(),
+    NgbProgressbarModule.forRoot(),    NgbTooltipModule.forRoot(),     NgbTypeaheadModule.forRoot(),
+    NgbAccordionModule.forRoot(),      NgbCarouselModule.forRoot(),    NgbDatepickerModule.forRoot(),
+    NgbDropdownModule.forRoot(),       NgbModalModule.forRoot(),       NgbPaginationModule.forRoot(),
+    NgbPopoverModule.forRoot(),        NgbProgressbarModule.forRoot(), NgbRatingModule.forRoot(),
+    NgbTabsetModule.forRoot(),         NgbTimepickerModule.forRoot(),  NgbTooltipModule.forRoot(),
+    NgbAccordiontableModule.forRoot(), NgbMultiselectModule.forRoot(), NgbSliderModule.forRoot()
   ],
   exports: NGB_MODULES
 })

@@ -14,6 +14,9 @@ export * from './tabset';
 export * from './timepicker';
 export * from './tooltip';
 export * from './typeahead';
+export * from './slider';
+export * from './accordiontable';
+export * from './multiselect';
 
 import {NgModule} from '@angular/core';
 
@@ -35,6 +38,9 @@ import {NgbdTabsModule} from './tabset';
 import {NgbdTimepickerModule} from './timepicker';
 import {NgbdTooltipModule} from './tooltip';
 import {NgbdTypeaheadModule} from './typeahead';
+import {NgbdSliderModule} from './slider';
+import {NgbdAccordiontableModule} from './accordiontable';
+import {NgbdMultiselectModule} from './multiselect';
 
 @NgModule({
   imports: [
@@ -54,7 +60,10 @@ import {NgbdTypeaheadModule} from './typeahead';
     NgbdTabsModule,
     NgbdTimepickerModule,
     NgbdTooltipModule,
-    NgbdTypeaheadModule
+    NgbdTypeaheadModule,
+    NgbdSliderModule,
+    NgbdAccordiontableModule,
+    NgbdMultiselectModule
   ],
   exports: [
     NgbdAccordionModule,
@@ -72,7 +81,10 @@ import {NgbdTypeaheadModule} from './typeahead';
     NgbdTabsModule,
     NgbdTimepickerModule,
     NgbdTooltipModule,
-    NgbdTypeaheadModule
+    NgbdTypeaheadModule,
+    NgbdSliderModule,
+    NgbdAccordiontableModule,
+    NgbdMultiselectModule
   ]
 })
 export class NgbdDemoModule {}
