@@ -33,8 +33,8 @@ export interface StarTemplateContext {
     <span tabindex="0" (mouseleave)="reset()" aria-valuemin="0" [attr.aria-valuemax]="max" [attr.aria-valuenow]="rate">
       <template ngFor let-r [ngForOf]="range" let-index="index">
         <span class="sr-only">({{ index < rate ? '*' : ' ' }})</span>
-        <span (mouseenter)="enter(index + 1)" (click)="update(index + 1)" [title]="r.title" 
-        [attr.aria-valuetext]="r.title" 
+        <span (mouseenter)="enter(index + 1)" (click)="update(index + 1)" [title]="r.title"
+        [attr.aria-valuetext]="r.title"
         [style.cursor]="readonly ? 'not-allowed' : 'pointer'">
           <template [ngTemplateOutlet]="starTemplate || t" [ngOutletContext]="{fill: getFillValue(index)}"></template>
         </span>

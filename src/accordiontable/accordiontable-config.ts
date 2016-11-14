@@ -9,9 +9,7 @@ import {Injectable} from '@angular/core';
 export class NgbAccordiontableConfig {
   multi = false;
   content: JSON;
-  maxColumns = 0;
-  maxRows = 0;
-  maxInfos = 0;
+  numberOfInfos = 12;
   enumeration = false;
   enumerationText = '#';
   infosText = 'Info';

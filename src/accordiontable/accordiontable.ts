@@ -31,12 +31,20 @@ interface Content {
             <th *ngIf="enumeration" scope="row">{{ index+1 }}</th>
             <td *ngFor="let cell of row.cells">{{ cell }}</td>
             <td>
-              <button type="button" class="btn btn-outline-primary" (click)="row.isNotCollapsed = !row.isNotCollapsed">
+              <button *ngIf="multi" type="button" class="btn btn-outline-primary" (click)="row.isNotCollapsed = !row.isNotCollapsed">
+                More
+              </button>
+              <button *ngIf="!multi" type="button" class="btn btn-outline-primary" (click)="chooseItem(row)">
                 More
               </button>
             </td>
           </tr>
-          <tr class="row" [ngClass]="{'collapse': !row.isNotCollapsed}">
+          <tr *ngIf="multi" class="row" [ngClass]="{'collapse': !row.isNotCollapsed}">
+            <td colspan="100%">
+              <div *ngFor="let info of row.infos" class="col-xs-{{ infoSize }}">{{ info }}</div>
+            </td>
+          </tr>
+          <tr *ngIf="!multi" class="row" [ngClass]="{'collapse': row != chosenItem}">
             <td colspan="100%">
               <div *ngFor="let info of row.infos" class="col-xs-{{ infoSize }}">{{ info }}</div>
             </td>
@@ -47,7 +55,8 @@ interface Content {
   `
 })
 export class NgbAccordiontable {
-  infoSize = 1;
+  infoSize: number;
+  chosenItem = null;
 
   /**
    * A flag indicating if want to be multi selected or not.
@@ -60,21 +69,11 @@ export class NgbAccordiontable {
   @Input() content: JSON;
 
   /**
-   * The max number of columns to display in table.
-   */
-  @Input() maxColumns: number;
-
-  /**
-   * The max number of rows to display in table.
-   */
-  @Input() maxRows: number;
-
-  /**
-   * The max number of info fields to display in one row.
+   * The number of infos fields to display in one row (max 12).
    */
   @Input()
-  set maxInfos(maxInfos: number) {
-    this.infoSize = maxInfos ? Math.floor(12 / maxInfos) : this.infoSize;
+  set numberOfInfos(numberOfInfos: number) {
+    this.infoSize = Math.floor(12 / numberOfInfos);
   };
 
   /**
@@ -95,12 +94,14 @@ export class NgbAccordiontable {
   constructor(config: NgbAccordiontableConfig) {
     this.multi = config.multi;
     this.content = config.content;
-    this.maxColumns = config.maxColumns;
-    this.maxRows = config.maxRows;
-    this.maxInfos = config.maxInfos;
+    this.numberOfInfos = config.numberOfInfos;
     this.enumeration = config.enumeration;
     this.enumerationText = config.enumerationText;
     this.infosText = config.infosText;
+  }
+
+  chooseItem(item) {
+    this.chosenItem = (this.chosenItem !== item) ? item : null;
   }
 }
 
