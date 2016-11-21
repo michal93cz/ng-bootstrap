@@ -1,15 +1,7 @@
-import {Component, Input, Directive, TemplateRef} from '@angular/core';
+import {Component, Input, Directive, TemplateRef, ContentChild} from '@angular/core';
 import {NgbAccordiontableConfig} from './accordiontable-config';
 
-interface Row {
-  cells: Array<String>;
-  infos: Array<String>;
-}
-
-interface Content {
-  columns: Array<String>;
-  rows: Array<Row>;
-}
+export interface CollapseTemplateContext {}
 
 /**
  * accordionTable directive that will take care of visualising a star accordionTable bar.
@@ -17,6 +9,11 @@ interface Content {
 @Component({
   selector: 'ngb-accordiontable',
   template: `
+    <template #t>
+      <button type="button" class="btn btn-outline-primary">
+        More
+      </button>
+    </template>
     <table class="table">
       <thead>
         <tr class="row">
@@ -31,20 +28,12 @@ interface Content {
             <th *ngIf="enumeration" scope="row">{{ index+1 }}</th>
             <td *ngFor="let cell of row.cells">{{ cell }}</td>
             <td>
-              <button *ngIf="multi" type="button" class="btn btn-outline-primary" (click)="row.isNotCollapsed = !row.isNotCollapsed">
-                More
-              </button>
-              <button *ngIf="!multi" type="button" class="btn btn-outline-primary" (click)="chooseItem(row)">
-                More
-              </button>
+              <div (click)="toggleInfos(row)">
+                <template [ngTemplateOutlet]="collapseTemplate || t"></template>
+              </div>
             </td>
           </tr>
-          <tr *ngIf="multi" class="row" [ngClass]="{'collapse': !row.isNotCollapsed}">
-            <td colspan="100%">
-              <div *ngFor="let info of row.infos" class="col-xs-{{ infoSize }}">{{ info }}</div>
-            </td>
-          </tr>
-          <tr *ngIf="!multi" class="row" [ngClass]="{'collapse': row != chosenItem}">
+          <tr class="row" [ngClass]="{'collapse': isCollapsed(row)}">
             <td colspan="100%">
               <div *ngFor="let info of row.infos" class="col-xs-{{ infoSize }}">{{ info }}</div>
             </td>
@@ -76,6 +65,8 @@ export class NgbAccordiontable {
     this.infoSize = Math.floor(12 / numberOfInfos);
   };
 
+  @Input() @ContentChild(TemplateRef) collapseTemplate: TemplateRef<CollapseTemplateContext>;
+
   /**
    * A flag indicating if want to have enumeration or not.
    */
@@ -100,8 +91,22 @@ export class NgbAccordiontable {
     this.infosText = config.infosText;
   }
 
-  chooseItem(item) {
-    this.chosenItem = (this.chosenItem !== item) ? item : null;
+  chooseItem(item) { this.chosenItem = (this.chosenItem !== item) ? item : null; }
+
+  toggleInfos(item) {
+    if (this.multi) {
+      item.isNotCollapsed = !item.isNotCollapsed;
+    } else {
+      this.chosenItem = (this.chosenItem !== item) ? item : null;
+    }
+  }
+
+  isCollapsed(item) {
+    if (this.multi) {
+      return !item.isNotCollapsed;
+    } else {
+      return item !== this.chosenItem;
+    }
   }
 }
 

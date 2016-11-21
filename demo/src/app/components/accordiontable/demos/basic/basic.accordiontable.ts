@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class AccordiontableBasicComponent {
   content = {
-    columns: ['one', 'two', 'three'],
+    columns: ['First column', 'Second column', 'Third column'],
     rows: [
       {
         cells: ['fwfg', 'three', 'four'],
