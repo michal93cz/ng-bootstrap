@@ -1,4 +1,4 @@
-import {Component, Input, Directive, TemplateRef, ContentChild} from '@angular/core';
+import {Component, Input, Directive, TemplateRef, ContentChild, OnInit} from '@angular/core';
 import {NgbAccordiontableConfig} from './accordiontable-config';
 
 export interface CollapseTemplateContext {}
@@ -43,7 +43,7 @@ export interface CollapseTemplateContext {}
     </table>
   `
 })
-export class NgbAccordiontable {
+export class NgbAccordiontable implements OnInit {
   infoSize: number;
   chosenItem = null;
 
@@ -60,10 +60,7 @@ export class NgbAccordiontable {
   /**
    * The number of infos fields to display in one row (max 12).
    */
-  @Input()
-  set numberOfInfos(numberOfInfos: number) {
-    this.infoSize = Math.floor(12 / numberOfInfos);
-  };
+  @Input() numberOfInfos: number;
 
   @Input() @ContentChild(TemplateRef) collapseTemplate: TemplateRef<CollapseTemplateContext>;
 
@@ -81,6 +78,10 @@ export class NgbAccordiontable {
    * A text of info button column name.
    */
   @Input() infosText: String;
+
+  ngOnInit() {
+    this.setInfoSize();
+  }
 
   constructor(config: NgbAccordiontableConfig) {
     this.multi = config.multi;
@@ -107,6 +108,10 @@ export class NgbAccordiontable {
     } else {
       return item !== this.chosenItem;
     }
+  }
+
+  setInfoSize() {
+    this.infoSize = Math.floor(12 / this.numberOfInfos);
   }
 }
 
