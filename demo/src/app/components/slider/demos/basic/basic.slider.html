@@ -1,10 +1,5 @@
-<p>
-  <button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed">Toggle</button>
-</p>
-<div [ngbCollapse]="isCollapsed">
-  <div class="card">
-    <div class="card-block">
-      You can collapse this card by clicking Toggle
-    </div>
-  </div>
-</div>
+<ngb-slider [items]="items" [(value)]="sliderValue"></ngb-slider>
+
+<hr>
+
+<pre>Current range: {{sliderValue}}</pre>

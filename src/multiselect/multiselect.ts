@@ -1,18 +1,42 @@
-import {Directive, Input} from '@angular/core';
+import {Component} from '@angular/core';
+import {NgbModal, NgbModalOptions} from '../modal/modal.module';
 
 /**
- * The NgbCollapse directive provides a simple way to hide and show an element with animations.
+ * accordionTable directive that will take care of visualising a star accordionTable bar.
  */
-@Directive({
+@Component({
   selector: 'ngb-multiselect',
-  exportAs: 'ngb-multiselect',
-  host: {'[class.collapse]': 'true', '[class.in]': '!collapsed', '[attr.aria-expanded]': '!collapsed'}
+  template: `
+  <template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h4 class="modal-title">Modal title</h4>
+    </div>
+    <div class="modal-body">
+      <p>One fine body&hellip;</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+    </div>
+  </template>
+
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+  `
 })
 export class NgbMultiselect {
-  /**
-   * A flag indicating collapsed (true) or open (false) state.
-   */
-  @Input('ngbMultiselect') collapsed = false;
+  closeResult: string;
+
+  constructor(private modalService: NgbModal) {}
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed`;
+    });
+  }
 }
 
 export const NGB_MULTISELECT_DIRECTIVES = [NgbMultiselect];
