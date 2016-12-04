@@ -48,5 +48,5 @@ export class SliderBasicComponent {
       }
     ];
 
-    public sliderValue = [40, 50];
+    public sliderValue = [10, 90];
 }

@@ -7,8 +7,6 @@ import {Injectable} from '@angular/core';
  */
 @Injectable()
 export class NgbSliderConfig {
-  min = 1;
-  max = 100;
   step = 1;
   connect = true;
 }

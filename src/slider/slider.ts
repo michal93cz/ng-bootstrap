@@ -15,7 +15,7 @@ import {NgbSliderConfig} from './slider-config';
             [ngStyle]="{'left': getLeftSpace(mainRange, item.range)}"
             style="cursor: pointer">{{ item.label }}</div>
     </div>
-    <nouislider [config]="rangeConfig" [(ngModel)]="value" style="margin-bottom: 50px"></nouislider>
+    <nouislider [config]="rangeConfig" [(ngModel)]="value" (ngModelChange)="changeEmit()" style="margin-bottom: 50px"></nouislider>
   `
 })
 export class NgbSlider implements OnInit {
@@ -26,16 +26,6 @@ export class NgbSlider implements OnInit {
    * A flag indicating if want to be multi selected or not.
    */
   @Input() items: any;
-
-  /**
-   * The json with content to display in table.
-   */
-  @Input() min: number;
-
-  /**
-   * The json with content to display in table.
-   */
-  @Input() max: number;
 
   /**
    * The json with content to display in table.
@@ -56,7 +46,7 @@ export class NgbSlider implements OnInit {
    *  An event fired when the page is changed.
    *  Event's payload equals the current page.
    */
-  @Output() pageChange = new EventEmitter();
+  @Output() valueChange = new EventEmitter();
 
   ngOnInit() {
     this.setMainRange();
@@ -70,14 +60,13 @@ export class NgbSlider implements OnInit {
       },
       pips: {
         mode: 'values',
-        values: this.getScaleValues()
+        values: this.getScaleValues(),
+        density: 1000
       }
     };
   }
 
   constructor(config: NgbSliderConfig) {
-    this.min = config.min;
-    this.max = config.max;
     this.connect = config.connect;
     this.step = config.step;
   }
@@ -110,8 +99,13 @@ export class NgbSlider implements OnInit {
     this.mainRange = [this.items[0].range[0], this.items[this.items.length-1].range[1]];
   }
 
+  changeEmit() {
+    this.valueChange.emit(this.value);
+  }
+
   setRange(range) {
     this.value = range;
+    this.changeEmit();
   }
 }
 
