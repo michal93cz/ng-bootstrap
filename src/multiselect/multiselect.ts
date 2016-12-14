@@ -1,41 +1,96 @@
-import {Component} from '@angular/core';
-import {NgbModal, NgbModalOptions} from '../modal/modal.module';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {NgbModal} from '../modal/modal.module';
+import {NgbMultiselectConfig} from './multiselect-config';
 
 /**
- * accordionTable directive that will take care of visualising a star accordionTable bar.
+ * multiSelect directive that will take care of visualising a star accordionTable bar.
  */
+
 @Component({
   selector: 'ngb-multiselect',
   template: `
   <template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4 class="modal-title">Modal title</h4>
+    <template ngbModalContainer></template>
+    <div *ngIf="titleText" class="modal-header">
+      <h4 class="modal-title">{{ titleText }}</h4>
     </div>
-    <div class="modal-body">
-      <p>One fine body&hellip;</p>
+    <div class="modal-body" style="max-height: 60vh; overflow-y: auto">
+      <ul class="list-group">
+        <li *ngFor="let item of items"
+            (click)="setActive(item)"
+            [ngClass]="{'active': item.active}"
+            class="list-group-item list-group-item-action"
+            style="cursor: pointer">
+            <p class="list-group-item-heading">
+              {{ item.label }}
+            </p>
+            <p *ngIf="item.description" class="list-group-item-text">
+              {{ item.description }}
+            </p>
+        </li>
+      </ul>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+      <button type="button" class="btn btn-secondary pull-left" (click)="c()">{{ cancelText }}</button>
+      <button type="button" class="btn btn-primary" (click)="save()">{{ submitText }}</button>
     </div>
   </template>
 
-  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">{{ openText }}</button>
   `
 })
 export class NgbMultiselect {
-  closeResult: string;
+  modalRef: any;
 
-  constructor(private modalService: NgbModal) {}
+  /**
+   * The json with content to display in modal body.
+   */
+  @Input() items: any;
+
+  /**
+   * The text to display in button which open modal.
+   */
+  @Input() openText: String;
+
+  /**
+   * The text to display in modal title (if this is empty modal apear without title space).
+   */
+  @Input() titleText: String;
+
+  /**
+   * The text to display in button which submit choice.
+   */
+  @Input() submitText: String;
+
+  /**
+   * The text to display in button which cancel choice.
+   */
+  @Input() cancelText: String;
+
+  /**
+   *  An event fired when the choice is changed.
+   *  Event's payload equals the current structure.
+   */
+  @Output() valueChange = new EventEmitter();
+
+  constructor(private modalService: NgbModal, config: NgbMultiselectConfig) {
+    this.openText = config.openText;
+    this.titleText = config.titleText;
+    this.submitText = config.submitText;
+    this.cancelText = config.cancelText;
+  }
 
   open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed`;
-    });
+    this.modalRef = this.modalService.open(content);
+  }
+
+  save() {
+    this.modalRef.close();
+    this.valueChange.emit(this.items);
+  }
+
+  setActive(item) {
+    item.active = !item.active;
   }
 }
 
