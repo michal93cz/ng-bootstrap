@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {NgbModal} from '../modal/modal.module';
 import {NgbMultiselectConfig} from './multiselect-config';
 
@@ -16,7 +16,7 @@ import {NgbMultiselectConfig} from './multiselect-config';
     </div>
     <div class="modal-body" style="max-height: 60vh; overflow-y: auto">
       <ul class="list-group">
-        <li *ngFor="let item of items"
+        <li *ngFor="let item of tempItems"
             (click)="setActive(item)"
             [ngClass]="{'active': item.active}"
             class="list-group-item list-group-item-action"
@@ -31,16 +31,17 @@ import {NgbMultiselectConfig} from './multiselect-config';
       </ul>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary pull-left" (click)="c()">{{ cancelText }}</button>
-      <button type="button" class="btn btn-primary" (click)="save()">{{ submitText }}</button>
+      <button type="button" class="btn btn-secondary" style="float:left" (click)="c()">{{ cancelText }}</button>
+      <!--<button type="button" class="btn btn-primary" (click)="save()">{{ submitText }}</button>-->
     </div>
   </template>
 
   <button class="btn btn-lg btn-outline-primary" (click)="open(content)">{{ openText }}</button>
   `
 })
-export class NgbMultiselect {
+export class NgbMultiselect implements OnInit {
   modalRef: any;
+  tempItems: any;
 
   /**
    * The json with content to display in modal body.
@@ -67,11 +68,9 @@ export class NgbMultiselect {
    */
   @Input() cancelText: String;
 
-  /**
-   *  An event fired when the choice is changed.
-   *  Event's payload equals the current structure.
-   */
-  @Output() valueChange = new EventEmitter();
+  ngOnInit() {
+    this.tempItems = this.items;
+  }
 
   constructor(private modalService: NgbModal, config: NgbMultiselectConfig) {
     this.openText = config.openText;
@@ -86,7 +85,7 @@ export class NgbMultiselect {
 
   save() {
     this.modalRef.close();
-    this.valueChange.emit(this.items);
+    this.items = this.tempItems;
   }
 
   setActive(item) {

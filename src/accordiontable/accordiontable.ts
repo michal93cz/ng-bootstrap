@@ -27,10 +27,8 @@ export interface CollapseTemplateContext {}
           <tr>
             <th *ngIf="enumeration" scope="row">{{ index+1 }}</th>
             <td *ngFor="let cell of row.cells">{{ cell }}</td>
-            <td>
-              <div (click)="toggleInfos(row)">
-                <template [ngTemplateOutlet]="collapseTemplate || t"></template>
-              </div>
+            <td (click)="toggleInfos(row)" width="1%">
+              <template [ngTemplateOutlet]="collapseTemplate || t"></template>
             </td>
           </tr>
           <tr class="row" [ngClass]="{'collapse': isCollapsed(row)}">
