@@ -60,6 +60,9 @@ export class NgbAccordiontable implements OnInit {
    */
   @Input() numberOfInfos: number;
 
+  /**
+   * The element which open a collapse row.
+   */
   @Input() @ContentChild(TemplateRef) collapseTemplate: TemplateRef<CollapseTemplateContext>;
 
   /**

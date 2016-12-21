@@ -1,4 +1,6 @@
 @import "~nouislider/distribute/nouislider.min.css";
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome.scss";
 
 // styles in src/style directory are applied to the whole page
 .navbar {
