@@ -8,7 +8,8 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class NgbMultiselectConfig {
   titleText = '';
-  submitText = 'Choose';
-  cancelText = 'Cancel';
-  openText = 'Select'
+  clearText = 'Clear';
+  closeText = 'Close';
+  openText = 'Select';
+  activeMode = false;
 }

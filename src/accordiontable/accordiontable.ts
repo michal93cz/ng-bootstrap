@@ -4,14 +4,14 @@ import {NgbAccordiontableConfig} from './accordiontable-config';
 export interface CollapseTemplateContext {}
 
 /**
- * accordionTable directive that will take care of visualising a star accordionTable bar.
+ * accordionTable directive that will take care of visualising nested table with accordion.
  */
 @Component({
   selector: 'ngb-accordiontable',
   template: `
     <template #t>
       <button type="button" class="btn btn-outline-primary">
-        More
+        {{ moreText }}
       </button>
     </template>
     <table class="table">
@@ -80,17 +80,22 @@ export class NgbAccordiontable implements OnInit {
    */
   @Input() infosText: String;
 
+  /**
+   * A text of info more button name.
+   */
+  @Input() moreText: String;
+
   ngOnInit() {
     this.setInfoSize();
   }
 
   constructor(config: NgbAccordiontableConfig) {
     this.multi = config.multi;
-    this.content = config.content;
     this.numberOfInfos = config.numberOfInfos;
     this.enumeration = config.enumeration;
     this.enumerationText = config.enumerationText;
     this.infosText = config.infosText;
+    this.moreText = config.moreText;
   }
 
   chooseItem(item) { this.chosenItem = (this.chosenItem !== item) ? item : null; }

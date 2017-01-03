@@ -8,9 +8,9 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class NgbAccordiontableConfig {
   multi = false;
-  content: JSON;
   numberOfInfos = 12;
   enumeration = false;
   enumerationText = '#';
   infosText = 'Info';
+  moreText = 'More';
 }

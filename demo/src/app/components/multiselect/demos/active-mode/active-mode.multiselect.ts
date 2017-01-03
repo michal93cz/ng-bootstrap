@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ngbd-multiselect-basic',
-  templateUrl: './basic.multiselect.html'
+  selector: 'ngbd-multiselect-active-mode',
+  templateUrl: './active-mode.multiselect.html'
 })
-export class MultiselectBasicComponent {
+export class MultiselectActiveModeComponent {
   public items = [
     {
       label: 'Dapibus ac facilisis'
@@ -31,6 +31,4 @@ export class MultiselectBasicComponent {
       description: 'Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.'
     }
   ];
-
-  public selectedItems = [];
 }

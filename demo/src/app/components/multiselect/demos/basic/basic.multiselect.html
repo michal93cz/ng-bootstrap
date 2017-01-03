@@ -1,3 +1,5 @@
-<ngb-multiselect titleText="Choose items" cancelText="Close" [items]="items"></ngb-multiselect>
+<ngb-multiselect titleText="Choose items" [items]="items" [(selectedItems)]="selectedItems"></ngb-multiselect>
+
 <hr>
-<pre>{{items | json}}</pre>
+
+<pre>{{selectedItems | json}}</pre>

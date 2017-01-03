@@ -1,21 +1,28 @@
-import { NouisliderModule } from 'ng2-nouislider';
-import {Component, Input, Output, Directive, TemplateRef, ContentChild, EventEmitter, OnInit} from '@angular/core';
+import {NouisliderModule} from 'ng2-nouislider';
+import {Component, Input, Output, Directive, EventEmitter, OnInit} from '@angular/core';
 import {NgbSliderConfig} from './slider-config';
 
 /**
- * accordionTable directive that will take care of visualising a star accordionTable bar.
+ * slider directive that will take care of choice a range or one value from available.
  */
 @Component({
   selector: 'ngb-slider',
-  template: `
-    <div class="noUi-pips noUi-pips-horizontal" style="position: relative; height: 44px">
+  templateUrl: `
+    <div class="noUi-pips noUi-pips-horizontal"
+         style="position: relative; height: 44px">
       <div *ngFor="let item of items"
-            (click)="setRange(item.range)"
-            class="noUi-value noUi-value-horizontal noUi-value-large"
-            [ngStyle]="{'left': getLeftSpace(mainRange, item.range)}"
-            style="cursor: pointer">{{ item.label }}</div>
+           (click)="setRange(item.range)"
+           class="noUi-value noUi-value-horizontal noUi-value-large"
+           [ngStyle]="{'left': getLeftSpace(mainRange, item.range)}"
+           style="cursor: pointer">
+        {{ item.label }}
+      </div>
     </div>
-    <nouislider [config]="rangeConfig" [(ngModel)]="value" (ngModelChange)="changeEmit()" style="margin-bottom: 50px"></nouislider>
+    <nouislider [config]="rangeConfig"
+                [(ngModel)]="value"
+                (ngModelChange)="changeEmit()"
+                style="margin-bottom: 50px">
+    </nouislider>
   `
 })
 export class NgbSlider implements OnInit {
@@ -43,8 +50,8 @@ export class NgbSlider implements OnInit {
   @Input() value: any;
 
   /**
-   *  An event fired when the page is changed.
-   *  Event's payload equals the current page.
+   *  An event fired when the value or range is changed.
+   *  Event's payload equals the current value or range.
    */
   @Output() valueChange = new EventEmitter();
 
@@ -104,7 +111,12 @@ export class NgbSlider implements OnInit {
   }
 
   setRange(range) {
-    this.value = range;
+    if(this.connect) {
+      this.value = range;
+    } else {
+      this.value = range[1] + 1;
+    }
+
     this.changeEmit();
   }
 }

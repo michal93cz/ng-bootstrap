@@ -1,7 +1,11 @@
 <ngbd-content-wrapper component="Multiselect">
   <ngbd-api-docs directive="NgbMultiselect"></ngbd-api-docs>
-  <ngbd-example-box demoTitle="Demo" [htmlSnippet]="snippets.basic.markup" [tsSnippet]="snippets.basic.code">
+  <ngbd-example-box demoTitle="Basic mode" [htmlSnippet]="snippets.basic.markup" [tsSnippet]="snippets.basic.code">
     <template ngbModalContainer></template>
     <ngbd-multiselect-basic></ngbd-multiselect-basic>
+  </ngbd-example-box>
+  <ngbd-example-box demoTitle="Active mode" [htmlSnippet]="snippets.activeMode.markup" [tsSnippet]="snippets.activeMode.code">
+    <template ngbModalContainer></template>
+    <ngbd-multiselect-active-mode></ngbd-multiselect-active-mode>
   </ngbd-example-box>
 </ngbd-content-wrapper>
