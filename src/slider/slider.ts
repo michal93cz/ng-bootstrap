@@ -7,7 +7,7 @@ import {NgbSliderConfig} from './slider-config';
  */
 @Component({
   selector: 'ngb-slider',
-  templateUrl: `
+  template: `
     <div class="noUi-pips noUi-pips-horizontal"
          style="position: relative; height: 44px">
       <div *ngFor="let item of items"
@@ -18,6 +18,7 @@ import {NgbSliderConfig} from './slider-config';
         {{ item.label }}
       </div>
     </div>
+
     <nouislider [config]="rangeConfig"
                 [(ngModel)]="value"
                 (ngModelChange)="changeEmit()"
@@ -25,6 +26,7 @@ import {NgbSliderConfig} from './slider-config';
     </nouislider>
   `
 })
+
 export class NgbSlider implements OnInit {
   public mainRange: number[];
   public rangeConfig: any;

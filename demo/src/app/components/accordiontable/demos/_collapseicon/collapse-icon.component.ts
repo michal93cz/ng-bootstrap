@@ -4,8 +4,8 @@ import { Component, Input } from '@angular/core';
   selector: 'collapse-icon',
   template: `
     <i (click)="isNotCollapsed=!isNotCollapsed"
-      [ngClass]="{'fa-chevron-up': isNotCollapsed, 'fa-chevron-down': !isNotCollapsed}"
-      class="fa fa-fw">
+       [ngClass]="{'fa-chevron-up': isNotCollapsed, 'fa-chevron-down': !isNotCollapsed}"
+       class="fa fa-fw">
     </i>
   `
 })

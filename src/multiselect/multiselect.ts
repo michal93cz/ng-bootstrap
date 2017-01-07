@@ -9,19 +9,25 @@ import {NgbMultiselectConfig} from './multiselect-config';
 @Component({
   selector: 'ngb-multiselect',
   template: `
-  <template #content let-c="close" let-d="dismiss">
-    <template ngbModalContainer></template>
-    <div *ngIf="titleText" class="modal-header">
-      <h4 class="modal-title">{{ titleText }}</h4>
-    </div>
-    <div class="modal-body"
-         style="max-height: 60vh; overflow-y: auto">
-      <ul class="list-group">
-        <li *ngFor="let item of items"
-            (click)="toggleItem(item)"
-            [ngClass]="{'active': isActive(item)}"
-            class="list-group-item list-group-item-action"
-            style="cursor: pointer">
+    <template #content
+              let-c="close"
+              let-d="dismiss">
+      <template ngbModalContainer>
+      </template>
+      <div *ngIf="titleText"
+           class="modal-header">
+        <h4 class="modal-title">
+          {{ titleText }}
+        </h4>
+      </div>
+      <div class="modal-body"
+           style="max-height: 60vh; overflow-y: auto">
+        <ul class="list-group">
+          <li *ngFor="let item of items"
+              (click)="toggleItem(item)"
+              [ngClass]="{'active': isActive(item)}"
+              class="list-group-item list-group-item-action"
+              style="cursor: pointer">
             <p class="list-group-item-heading">
               {{ item.label }}
             </p>
@@ -29,30 +35,31 @@ import {NgbMultiselectConfig} from './multiselect-config';
                class="list-group-item-text">
               {{ item.description }}
             </p>
-        </li>
-      </ul>
-    </div>
-    <div class="modal-footer">
-      <button type="button"
-              class="btn btn-secondary"
-              style="float:left"
-              (click)="c()">
-        {{ closeText }}
-      </button>
-      <button type="button"
-              class="btn btn-primary"
-              (click)="cancelSelected()">
-        {{ clearText }}
-      </button>
-    </div>
-  </template>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button"
+                class="btn btn-secondary"
+                style="float:left"
+                (click)="c()">
+          {{ closeText }}
+        </button>
+        <button type="button"
+                class="btn btn-primary"
+                (click)="cancelSelected()">
+          {{ clearText }}
+        </button>
+      </div>
+    </template>
 
-  <button class="btn btn-lg btn-outline-primary"
-          (click)="open(content)">
-    {{ openText }}
-  </button>
+    <button class="btn btn-lg btn-outline-primary"
+            (click)="open(content)">
+      {{ openText }}
+    </button>
   `
 })
+
 export class NgbMultiselect {
   modalRef: any;
 

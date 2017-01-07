@@ -14,26 +14,48 @@ export interface CollapseTemplateContext {}
         {{ moreText }}
       </button>
     </template>
+
     <table class="table">
       <thead>
         <tr class="row">
-          <th *ngIf="enumeration">{{ enumerationText }}</th>
-          <th *ngFor="let column of content.columns">{{ column }}</th>
-          <th>{{ infosText }}</th>
+          <th *ngIf="enumeration">
+            {{ enumerationText }}
+          </th>
+          <th *ngFor="let column of content.columns">
+            {{ column }}
+          </th>
+          <th>
+            {{ infosText }}
+          </th>
         </tr>
       </thead>
+
       <tbody>
-        <template ngFor let-row [ngForOf]="content.rows" let-index="index">
+        <template ngFor
+                  let-row
+                  [ngForOf]="content.rows"
+                  let-index="index">
           <tr>
-            <th *ngIf="enumeration" scope="row">{{ index+1 }}</th>
-            <td *ngFor="let cell of row.cells">{{ cell }}</td>
-            <td (click)="toggleInfos(row)" width="1%">
-              <template [ngTemplateOutlet]="collapseTemplate || t"></template>
+            <th *ngIf="enumeration"
+                scope="row">
+              {{ index+1 }}
+            </th>
+            <td *ngFor="let cell of row.cells">
+              {{ cell }}
+            </td>
+            <td (click)="toggleInfos(row)"
+                width="1%">
+              <template [ngTemplateOutlet]="collapseTemplate || t">
+              </template>
             </td>
           </tr>
-          <tr class="row" [ngClass]="{'collapse': isCollapsed(row)}">
+          <tr class="row"
+              [ngClass]="{'collapse': isCollapsed(row)}">
             <td colspan="100%">
-              <div *ngFor="let info of row.infos" class="col-xs-{{ infoSize }}">{{ info }}</div>
+              <div *ngFor="let info of row.infos"
+                   class="col-xs-{{ infoSize }}">
+                {{ info }}
+              </div>
             </td>
           </tr>
         </template>
@@ -43,7 +65,7 @@ export interface CollapseTemplateContext {}
 })
 export class NgbAccordiontable implements OnInit {
   infoSize: number;
-  chosenItem = null;
+  chosenItem: any;
 
   /**
    * A flag indicating if want to be multi selected or not.
@@ -98,13 +120,15 @@ export class NgbAccordiontable implements OnInit {
     this.moreText = config.moreText;
   }
 
-  chooseItem(item) { this.chosenItem = (this.chosenItem !== item) ? item : null; }
+  chooseItem(item) {
+    this.chosenItem = (this.chosenItem !== item) ? item : null;
+  }
 
   toggleInfos(item) {
     if (this.multi) {
       item.isNotCollapsed = !item.isNotCollapsed;
     } else {
-      this.chosenItem = (this.chosenItem !== item) ? item : null;
+      this.chooseItem(item);
     }
   }
 
