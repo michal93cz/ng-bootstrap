@@ -69,12 +69,12 @@ export class NgbMultiselect {
   @Input() items: any;
 
   /**
-   * The json with content to display in modal body.
+   * The object which stores selected items
    */
   @Input() selectedItems: any;
 
   /**
-   * The json with content to display in modal body.
+   * The flag indicating if want to be in active mode or not.
    */
   @Input() activeMode: boolean;
 
@@ -94,7 +94,7 @@ export class NgbMultiselect {
   @Input() clearText: String;
 
   /**
-   * The text to display in button which cancel choice.
+   * The text to display in button which close window.
    */
   @Input() closeText: String;
 

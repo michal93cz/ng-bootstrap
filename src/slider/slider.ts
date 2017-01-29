@@ -32,22 +32,22 @@ export class NgbSlider implements OnInit {
   public rangeConfig: any;
 
   /**
-   * A flag indicating if want to be multi selected or not.
+   * The array with items to display on scale.
    */
   @Input() items: any;
 
   /**
-   * The json with content to display in table.
+   * The value of one step on slider.
    */
   @Input() step: number;
 
   /**
-   * The json with content to display in table.
+   * A flag indicating if want set range or one value in slider.
    */
   @Input() connect: boolean;
 
   /**
-   * The json with content to display in table.
+   * The model which stores actual value or range.
    */
   @Input() value: any;
 
